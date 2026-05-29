@@ -1,0 +1,789 @@
+asyncapi: '2.6.0'
+info:
+  title: Hyperliquid WebSocket API
+  version: '1.0.0'
+  description: >-
+    AsyncAPI 2.6 specification for the Hyperliquid public WebSocket API.
+    Clients connect to wss://api.hyperliquid.xyz/ws (mainnet) or
+    wss://api.hyperliquid-testnet.xyz/ws (testnet) and send subscribe /
+    unsubscribe messages to receive real-time market data, order book updates,
+    trades, candles, and user-specific events (orders, fills, fundings).
+    The same WebSocket also supports `post` messages to invoke REST-style info
+    and action requests with correlated responses.
+  contact:
+    name: Hyperliquid
+    url: https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/websocket
+  license:
+    name: MIT
+
+servers:
+  mainnet:
+    url: api.hyperliquid.xyz/ws
+    protocol: wss
+    description: Hyperliquid mainnet WebSocket endpoint
+  testnet:
+    url: api.hyperliquid-testnet.xyz/ws
+    protocol: wss
+    description: Hyperliquid testnet WebSocket endpoint
+
+defaultContentType: application/json
+
+channels:
+  /:
+    description: >-
+      Single WebSocket channel for all Hyperliquid subscriptions and
+      post-requests. Clients publish subscribe/unsubscribe/post messages and
+      receive subscriptionResponse, post, and per-feed data messages.
+    publish:
+      summary: Messages sent by the client to the server.
+      operationId: clientSend
+      message:
+        oneOf:
+          - $ref: '#/components/messages/SubscribeMessage'
+          - $ref: '#/components/messages/UnsubscribeMessage'
+          - $ref: '#/components/messages/PostRequest'
+    subscribe:
+      summary: Messages received by the client from the server.
+      operationId: clientReceive
+      message:
+        oneOf:
+          - $ref: '#/components/messages/SubscriptionResponse'
+          - $ref: '#/components/messages/PostResponse'
+          - $ref: '#/components/messages/AllMidsData'
+          - $ref: '#/components/messages/NotificationData'
+          - $ref: '#/components/messages/WebData2Data'
+          - $ref: '#/components/messages/CandleData'
+          - $ref: '#/components/messages/L2BookData'
+          - $ref: '#/components/messages/TradesData'
+          - $ref: '#/components/messages/BboData'
+          - $ref: '#/components/messages/OrderUpdatesData'
+          - $ref: '#/components/messages/UserEventsData'
+          - $ref: '#/components/messages/UserFillsData'
+          - $ref: '#/components/messages/UserFundingsData'
+          - $ref: '#/components/messages/UserNonFundingLedgerUpdatesData'
+          - $ref: '#/components/messages/ActiveAssetCtxData'
+          - $ref: '#/components/messages/ActiveAssetDataData'
+          - $ref: '#/components/messages/UserTwapSliceFillsData'
+          - $ref: '#/components/messages/UserTwapHistoryData'
+          - $ref: '#/components/messages/PongMessage'
+
+components:
+  messages:
+    SubscribeMessage:
+      name: subscribe
+      title: Subscribe
+      summary: Subscribe to a Hyperliquid feed.
+      payload:
+        type: object
+        required: [method, subscription]
+        properties:
+          method:
+            type: string
+            const: subscribe
+          subscription:
+            $ref: '#/components/schemas/Subscription'
+
+    UnsubscribeMessage:
+      name: unsubscribe
+      title: Unsubscribe
+      summary: Unsubscribe from a previously subscribed feed.
+      payload:
+        type: object
+        required: [method, subscription]
+        properties:
+          method:
+            type: string
+            const: unsubscribe
+          subscription:
+            $ref: '#/components/schemas/Subscription'
+
+    PostRequest:
+      name: post
+      title: Post Request
+      summary: >-
+        Send a REST-style info or action request over the WebSocket. The
+        response is delivered on the `post` channel with the same `id`.
+      payload:
+        type: object
+        required: [method, id, request]
+        properties:
+          method:
+            type: string
+            const: post
+          id:
+            type: integer
+            description: Client-supplied correlation id.
+          request:
+            type: object
+            required: [type, payload]
+            properties:
+              type:
+                type: string
+                enum: [info, action]
+              payload:
+                type: object
+
+    SubscriptionResponse:
+      name: subscriptionResponse
+      title: Subscription Response
+      summary: Acknowledgement of a subscribe/unsubscribe request.
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: subscriptionResponse
+          data:
+            type: object
+            properties:
+              method:
+                type: string
+                enum: [subscribe, unsubscribe]
+              subscription:
+                $ref: '#/components/schemas/Subscription'
+
+    PostResponse:
+      name: postResponse
+      title: Post Response
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: post
+          data:
+            type: object
+            properties:
+              id:
+                type: integer
+              response:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    enum: [info, action, error]
+                  payload:
+                    oneOf:
+                      - type: object
+                      - type: string
+
+    PongMessage:
+      name: pong
+      title: Pong
+      summary: Server keep-alive response to a client `ping`.
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: pong
+
+    AllMidsData:
+      name: allMids
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: allMids
+          data:
+            type: object
+            properties:
+              mids:
+                type: object
+                additionalProperties:
+                  type: string
+                description: Map of coin symbol to mid price string.
+
+    NotificationData:
+      name: notification
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: notification
+          data:
+            type: object
+            properties:
+              notification:
+                type: string
+
+    WebData2Data:
+      name: webData2
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: webData2
+          data:
+            type: object
+            description: >-
+              Aggregated user view used by the Hyperliquid web app, including
+              user state, perp dex states, vault equities, and leading vaults.
+
+    CandleData:
+      name: candle
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: candle
+          data:
+            $ref: '#/components/schemas/Candle'
+
+    L2BookData:
+      name: l2Book
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: l2Book
+          data:
+            $ref: '#/components/schemas/WsBook'
+
+    TradesData:
+      name: trades
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: trades
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/WsTrade'
+
+    BboData:
+      name: bbo
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: bbo
+          data:
+            type: object
+            properties:
+              coin:
+                type: string
+              time:
+                type: integer
+              bbo:
+                type: array
+                minItems: 2
+                maxItems: 2
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/WsLevel'
+                    - type: 'null'
+
+    OrderUpdatesData:
+      name: orderUpdates
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: orderUpdates
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/WsOrder'
+
+    UserEventsData:
+      name: user
+      summary: >-
+        User events. Note: while the subscription `type` is `userEvents`, the
+        channel field on incoming messages is `user`.
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: user
+          data:
+            type: object
+            description: >-
+              One of fills, funding, liquidation, or nonUserCancel events for
+              the subscribed user.
+
+    UserFillsData:
+      name: userFills
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: userFills
+          data:
+            type: object
+            properties:
+              isSnapshot:
+                type: boolean
+              user:
+                type: string
+              fills:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WsFill'
+
+    UserFundingsData:
+      name: userFundings
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: userFundings
+          data:
+            type: object
+            properties:
+              isSnapshot:
+                type: boolean
+              user:
+                type: string
+              fundings:
+                type: array
+                items:
+                  type: object
+
+    UserNonFundingLedgerUpdatesData:
+      name: userNonFundingLedgerUpdates
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: userNonFundingLedgerUpdates
+          data:
+            type: object
+            properties:
+              isSnapshot:
+                type: boolean
+              user:
+                type: string
+              nonFundingLedgerUpdates:
+                type: array
+                items:
+                  type: object
+
+    ActiveAssetCtxData:
+      name: activeAssetCtx
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            enum: [activeAssetCtx, activeSpotAssetCtx]
+          data:
+            type: object
+            properties:
+              coin:
+                type: string
+              ctx:
+                type: object
+                description: Perp or spot asset context (mark price, oracle, funding, etc.).
+
+    ActiveAssetDataData:
+      name: activeAssetData
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: activeAssetData
+          data:
+            type: object
+            properties:
+              user:
+                type: string
+              coin:
+                type: string
+              leverage:
+                type: object
+              maxTradeSzs:
+                type: array
+                items:
+                  type: string
+              availableToTrade:
+                type: array
+                items:
+                  type: string
+
+    UserTwapSliceFillsData:
+      name: userTwapSliceFills
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: userTwapSliceFills
+          data:
+            type: object
+            properties:
+              isSnapshot:
+                type: boolean
+              user:
+                type: string
+              twapSliceFills:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    fill:
+                      $ref: '#/components/schemas/WsFill'
+                    twapId:
+                      type: integer
+
+    UserTwapHistoryData:
+      name: userTwapHistory
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            const: userTwapHistory
+          data:
+            type: object
+            properties:
+              isSnapshot:
+                type: boolean
+              user:
+                type: string
+              history:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    state:
+                      type: object
+                    status:
+                      type: object
+                    time:
+                      type: integer
+
+  schemas:
+    Subscription:
+      oneOf:
+        - $ref: '#/components/schemas/SubAllMids'
+        - $ref: '#/components/schemas/SubNotification'
+        - $ref: '#/components/schemas/SubWebData2'
+        - $ref: '#/components/schemas/SubCandle'
+        - $ref: '#/components/schemas/SubL2Book'
+        - $ref: '#/components/schemas/SubTrades'
+        - $ref: '#/components/schemas/SubBbo'
+        - $ref: '#/components/schemas/SubOrderUpdates'
+        - $ref: '#/components/schemas/SubUserEvents'
+        - $ref: '#/components/schemas/SubUserFills'
+        - $ref: '#/components/schemas/SubUserFundings'
+        - $ref: '#/components/schemas/SubUserNonFundingLedgerUpdates'
+        - $ref: '#/components/schemas/SubActiveAssetCtx'
+        - $ref: '#/components/schemas/SubActiveAssetData'
+        - $ref: '#/components/schemas/SubUserTwapSliceFills'
+        - $ref: '#/components/schemas/SubUserTwapHistory'
+
+    SubAllMids:
+      type: object
+      required: [type]
+      properties:
+        type:
+          type: string
+          const: allMids
+        dex:
+          type: string
+          description: Optional perp dex name; defaults to the first perp dex.
+
+    SubNotification:
+      type: object
+      required: [type, user]
+      properties:
+        type:
+          type: string
+          const: notification
+        user:
+          type: string
+
+    SubWebData2:
+      type: object
+      required: [type, user]
+      properties:
+        type:
+          type: string
+          const: webData2
+        user:
+          type: string
+
+    SubCandle:
+      type: object
+      required: [type, coin, interval]
+      properties:
+        type:
+          type: string
+          const: candle
+        coin:
+          type: string
+        interval:
+          type: string
+          enum: ['1m','3m','5m','15m','30m','1h','2h','4h','8h','12h','1d','3d','1w','1M']
+
+    SubL2Book:
+      type: object
+      required: [type, coin]
+      properties:
+        type:
+          type: string
+          const: l2Book
+        coin:
+          type: string
+        nSigFigs:
+          type: integer
+          nullable: true
+        mantissa:
+          type: integer
+          nullable: true
+
+    SubTrades:
+      type: object
+      required: [type, coin]
+      properties:
+        type:
+          type: string
+          const: trades
+        coin:
+          type: string
+
+    SubBbo:
+      type: object
+      required: [type, coin]
+      properties:
+        type:
+          type: string
+          const: bbo
+        coin:
+          type: string
+
+    SubOrderUpdates:
+      type: object
+      required: [type, user]
+      properties:
+        type:
+          type: string
+          const: orderUpdates
+        user:
+          type: string
+
+    SubUserEvents:
+      type: object
+      required: [type, user]
+      properties:
+        type:
+          type: string
+          const: userEvents
+        user:
+          type: string
+
+    SubUserFills:
+      type: object
+      required: [type, user]
+      properties:
+        type:
+          type: string
+          const: userFills
+        user:
+          type: string
+        aggregateByTime:
+          type: boolean
+
+    SubUserFundings:
+      type: object
+      required: [type, user]
+      properties:
+        type:
+          type: string
+          const: userFundings
+        user:
+          type: string
+
+    SubUserNonFundingLedgerUpdates:
+      type: object
+      required: [type, user]
+      properties:
+        type:
+          type: string
+          const: userNonFundingLedgerUpdates
+        user:
+          type: string
+
+    SubActiveAssetCtx:
+      type: object
+      required: [type, coin]
+      properties:
+        type:
+          type: string
+          const: activeAssetCtx
+        coin:
+          type: string
+
+    SubActiveAssetData:
+      type: object
+      required: [type, user, coin]
+      properties:
+        type:
+          type: string
+          const: activeAssetData
+        user:
+          type: string
+        coin:
+          type: string
+
+    SubUserTwapSliceFills:
+      type: object
+      required: [type, user]
+      properties:
+        type:
+          type: string
+          const: userTwapSliceFills
+        user:
+          type: string
+
+    SubUserTwapHistory:
+      type: object
+      required: [type, user]
+      properties:
+        type:
+          type: string
+          const: userTwapHistory
+        user:
+          type: string
+
+    WsLevel:
+      type: object
+      properties:
+        px:
+          type: string
+        sz:
+          type: string
+        n:
+          type: integer
+
+    WsBook:
+      type: object
+      properties:
+        coin:
+          type: string
+        levels:
+          type: array
+          minItems: 2
+          maxItems: 2
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/WsLevel'
+        time:
+          type: integer
+
+    WsTrade:
+      type: object
+      properties:
+        coin:
+          type: string
+        side:
+          type: string
+          enum: ['A', 'B']
+        px:
+          type: string
+        sz:
+          type: string
+        hash:
+          type: string
+        time:
+          type: integer
+        tid:
+          type: integer
+        users:
+          type: array
+          items:
+            type: string
+
+    WsOrder:
+      type: object
+      properties:
+        order:
+          type: object
+        status:
+          type: string
+        statusTimestamp:
+          type: integer
+
+    WsFill:
+      type: object
+      properties:
+        coin:
+          type: string
+        px:
+          type: string
+        sz:
+          type: string
+        side:
+          type: string
+        time:
+          type: integer
+        startPosition:
+          type: string
+        dir:
+          type: string
+        closedPnl:
+          type: string
+        hash:
+          type: string
+        oid:
+          type: integer
+        crossed:
+          type: boolean
+        fee:
+          type: string
+        tid:
+          type: integer
+        liquidation:
+          type: object
+          nullable: true
+        feeToken:
+          type: string
+        builderFee:
+          type: string
+          nullable: true
+
+    Candle:
+      type: object
+      properties:
+        t:
+          type: integer
+          description: Open time (ms).
+        T:
+          type: integer
+          description: Close time (ms).
+        s:
+          type: string
+          description: Coin symbol.
+        i:
+          type: string
+          description: Interval.
+        o:
+          type: string
+        c:
+          type: string
+        h:
+          type: string
+        l:
+          type: string
+        v:
+          type: string
+          description: Volume.
+        n:
+          type: integer
+          description: Number of trades.
