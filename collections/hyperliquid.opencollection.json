@@ -1,0 +1,25 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hyperliquid Info API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Query info endpoint",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.hyperliquid.xyz/info",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Polymorphic POST endpoint. The `type` field in the body selects which\nquery is run (e.g. allMids, openOrders, userFills, l2Book, candleSnapshot, etc.).\n"
+    }
+  ],
+  "bundled": true
+}
