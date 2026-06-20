@@ -10,7 +10,7 @@ description: >-
   api.hyperliquid.xyz for trading, order management, market data, and account state.
   Official Python and Rust SDKs wrap the API, and the node, order-book server, and
   HyperEVM tooling are open-sourced under the hyperliquid-dex GitHub organization.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - DeFi
   - Perpetuals
