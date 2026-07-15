@@ -126,6 +126,8 @@ apis:
       - type: Documentation
         url: https://hyperliquid.gitbook.io/hyperliquid-docs/hyperevm
 common:
+  - type: AgenticAccess
+    url: agentic-access/hyperliquid-agentic-access.yml
   - type: DomainSecurity
     url: security/hyperliquid-domain-security.yml
   - type: Website
