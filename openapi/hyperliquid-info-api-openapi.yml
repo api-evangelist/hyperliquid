@@ -1,0 +1,283 @@
+openapi: 3.1.0
+info:
+  title: Hyperliquid Info API
+  description: 'Hyperliquid REST API for retrieving exchange and user info. All requests are POST to the
+
+    /info endpoint with a JSON body whose `type` field selects the query.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Hyperliquid Docs
+    url: https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api
+servers:
+- url: https://api.hyperliquid.xyz
+  description: Mainnet
+- url: https://api.hyperliquid-testnet.xyz
+  description: Testnet
+tags:
+- name: Info
+paths:
+  /info:
+    post:
+      summary: Query info endpoint
+      description: 'Polymorphic POST endpoint. The `type` field in the body selects which
+
+        query is run (e.g. allMids, openOrders, userFills, l2Book, candleSnapshot, etc.).
+
+        '
+      operationId: postInfo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/AllMidsRequest'
+              - $ref: '#/components/schemas/OpenOrdersRequest'
+              - $ref: '#/components/schemas/FrontendOpenOrdersRequest'
+              - $ref: '#/components/schemas/UserFillsRequest'
+              - $ref: '#/components/schemas/UserFillsByTimeRequest'
+              - $ref: '#/components/schemas/UserRateLimitRequest'
+              - $ref: '#/components/schemas/OrderStatusRequest'
+              - $ref: '#/components/schemas/L2BookRequest'
+              - $ref: '#/components/schemas/CandleSnapshotRequest'
+              - $ref: '#/components/schemas/HistoricalOrdersRequest'
+              - $ref: '#/components/schemas/SubAccountsRequest'
+              - $ref: '#/components/schemas/PortfolioRequest'
+              - $ref: '#/components/schemas/UserFeesRequest'
+              - $ref: '#/components/schemas/ReferralRequest'
+              - $ref: '#/components/schemas/DelegationsRequest'
+      responses:
+        '200':
+          description: Query result
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '400':
+          description: Bad request
+        '429':
+          description: Rate limited
+      tags:
+      - Info
+components:
+  schemas:
+    FrontendOpenOrdersRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - frontendOpenOrders
+        user:
+          type: string
+    L2BookRequest:
+      type: object
+      required:
+      - type
+      - coin
+      properties:
+        type:
+          type: string
+          enum:
+          - l2Book
+        coin:
+          type: string
+        nSigFigs:
+          type: integer
+        mantissa:
+          type: integer
+    UserFillsRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - userFills
+        user:
+          type: string
+        aggregateByTime:
+          type: boolean
+    UserFeesRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - userFees
+        user:
+          type: string
+    AllMidsRequest:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - allMids
+        dex:
+          type: string
+    UserFillsByTimeRequest:
+      type: object
+      required:
+      - type
+      - user
+      - startTime
+      properties:
+        type:
+          type: string
+          enum:
+          - userFillsByTime
+        user:
+          type: string
+        startTime:
+          type: integer
+          format: int64
+        endTime:
+          type: integer
+          format: int64
+        aggregateByTime:
+          type: boolean
+    SubAccountsRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - subAccounts
+        user:
+          type: string
+    HistoricalOrdersRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - historicalOrders
+        user:
+          type: string
+    OrderStatusRequest:
+      type: object
+      required:
+      - type
+      - user
+      - oid
+      properties:
+        type:
+          type: string
+          enum:
+          - orderStatus
+        user:
+          type: string
+        oid:
+          oneOf:
+          - type: integer
+            format: int64
+          - type: string
+    OpenOrdersRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - openOrders
+        user:
+          type: string
+          description: User's Ethereum address (0x...)
+    UserRateLimitRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - userRateLimit
+        user:
+          type: string
+    PortfolioRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - portfolio
+        user:
+          type: string
+    ReferralRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - referral
+        user:
+          type: string
+    CandleSnapshotRequest:
+      type: object
+      required:
+      - type
+      - req
+      properties:
+        type:
+          type: string
+          enum:
+          - candleSnapshot
+        req:
+          type: object
+          required:
+          - coin
+          - interval
+          - startTime
+          - endTime
+          properties:
+            coin:
+              type: string
+            interval:
+              type: string
+            startTime:
+              type: integer
+              format: int64
+            endTime:
+              type: integer
+              format: int64
+    DelegationsRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - delegations
+        user:
+          type: string
