@@ -10,7 +10,19 @@ description: >-
   api.hyperliquid.xyz for trading, order management, market data, and account state.
   Official Python and Rust SDKs wrap the API, and the node, order-book server, and
   HyperEVM tooling are open-sourced under the hyperliquid-dex GitHub organization.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: free
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Free
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/hyperliquid.png
 tags:
   - DeFi
   - Perpetuals
@@ -23,108 +35,115 @@ created: '2026-05-23'
 modified: '2026-05-29'
 specificationVersion: '0.19'
 apis:
-  - aid: hyperliquid:rest-api
-    name: Hyperliquid REST API
-    description: >-
-      Public REST API for the Hyperliquid exchange. Read endpoints expose market
-      metadata, order books, candles, trades, funding rates, user state, open orders,
-      fills, and historical data. Write endpoints (under /exchange) accept signed
-      actions for placing, cancelling, and modifying orders, transferring USDC,
-      adjusting leverage, and managing sub-accounts and vaults.
-    humanURL: https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api
-    baseURL: https://api.hyperliquid.xyz
-    tags:
-      - REST
-      - Trading
-      - Market Data
-      - Perpetuals
-    properties:
-      - type: Documentation
-        url: https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api
-  - aid: hyperliquid:websocket-api
-    name: Hyperliquid WebSocket API
-    description: >-
-      Real-time WebSocket feed delivering order-book deltas, trades, candles, BBO,
-      user fills, user funding, user-events, and active asset context. Also supports
-      WebSocket-based POST actions for low-latency order management.
-    humanURL: https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/websocket
-    baseURL: wss://api.hyperliquid.xyz/ws
-    tags:
-      - WebSocket
-      - Streaming
-      - Order Book
-      - Real-Time
-    properties:
-      - type: Documentation
-        url: https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/websocket
-      - type: AsyncAPI
-        url: https://raw.githubusercontent.com/api-evangelist/hyperliquid/refs/heads/main/asyncapi/hyperliquid-asyncapi.yml
-  - aid: hyperliquid:python-sdk
-    name: Hyperliquid Python SDK
-    description: >-
-      Official Python SDK for the Hyperliquid REST and WebSocket APIs. Handles
-      EIP-712 signing, action serialization, websocket subscription management, and
-      typed wrappers for market and trading endpoints.
-    humanURL: https://github.com/hyperliquid-dex/hyperliquid-python-sdk
-    baseURL: https://github.com/hyperliquid-dex/hyperliquid-python-sdk
-    tags:
-      - SDK
-      - Python
-      - Trading
-    properties:
-      - type: Documentation
-        url: https://github.com/hyperliquid-dex/hyperliquid-python-sdk
-      - type: Repository
-        url: https://github.com/hyperliquid-dex/hyperliquid-python-sdk
-  - aid: hyperliquid:rust-sdk
-    name: Hyperliquid Rust SDK
-    description: >-
-      Official Rust SDK for the Hyperliquid REST and WebSocket APIs, suited for
-      high-performance market-making and trading clients.
-    humanURL: https://github.com/hyperliquid-dex/hyperliquid-rust-sdk
-    baseURL: https://github.com/hyperliquid-dex/hyperliquid-rust-sdk
-    tags:
-      - SDK
-      - Rust
-      - Trading
-    properties:
-      - type: Documentation
-        url: https://github.com/hyperliquid-dex/hyperliquid-rust-sdk
-      - type: Repository
-        url: https://github.com/hyperliquid-dex/hyperliquid-rust-sdk
-  - aid: hyperliquid:node
-    name: Hyperliquid Node
-    description: >-
-      Open-source Hyperliquid validator / non-validating node distribution used to
-      participate in the HyperBFT consensus network and serve HyperCore + HyperEVM
-      state.
-    humanURL: https://github.com/hyperliquid-dex/node
-    baseURL: https://github.com/hyperliquid-dex/node
-    tags:
-      - Node
-      - Validator
-      - Infrastructure
-    properties:
-      - type: Documentation
-        url: https://github.com/hyperliquid-dex/node
-      - type: Repository
-        url: https://github.com/hyperliquid-dex/node
-  - aid: hyperliquid:hyperevm-rpc
-    name: HyperEVM JSON-RPC
-    description: >-
-      EVM-compatible JSON-RPC endpoint exposed by Hyperliquid for deploying and
-      interacting with smart contracts on HyperEVM (chain ID 999), executed alongside
-      HyperCore.
-    humanURL: https://hyperliquid.gitbook.io/hyperliquid-docs/hyperevm
-    baseURL: https://rpc.hyperliquid.xyz/evm
-    tags:
-      - JSON-RPC
-      - EVM
-      - HyperEVM
-      - Smart Contracts
-    properties:
-      - type: Documentation
-        url: https://hyperliquid.gitbook.io/hyperliquid-docs/hyperevm
+- aid: hyperliquid:rest-api
+  name: Hyperliquid REST API
+  description: >-
+    Public REST API for the Hyperliquid exchange. Read endpoints expose market metadata, order books,
+    candles, trades, funding rates, user state, open orders, fills, and historical data. Write endpoints
+    (under /exchange) accept signed actions for placing, cancelling, and modifying orders, transferring
+    USDC, adjusting leverage, and managing sub-accounts and vaults.
+  humanURL: https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api
+  baseURL: https://api.hyperliquid.xyz
+  tags:
+  - REST
+  - Trading
+  - Market Data
+  - Perpetuals
+  properties:
+  - type: Documentation
+    url: https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api
+- aid: hyperliquid:websocket-api
+  name: Hyperliquid WebSocket API
+  description: >-
+    Real-time WebSocket feed delivering order-book deltas, trades, candles, BBO, user fills, user funding,
+    user-events, and active asset context. Also supports WebSocket-based POST actions for low-latency
+    order management.
+  humanURL: https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/websocket
+  baseURL: wss://api.hyperliquid.xyz/ws
+  tags:
+  - WebSocket
+  - Streaming
+  - Order Book
+  - Real-Time
+  properties:
+  - type: Documentation
+    url: https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/websocket
+  - type: AsyncAPI
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/hyperliquid/refs/heads/main/asyncapi/hyperliquid-asyncapi.yml
+- aid: hyperliquid:python-sdk
+  name: Hyperliquid Python SDK
+  description: >-
+    Official Python SDK for the Hyperliquid REST and WebSocket APIs. Handles EIP-712 signing, action serialization,
+    websocket subscription management, and typed wrappers for market and trading endpoints.
+  humanURL: https://github.com/hyperliquid-dex/hyperliquid-python-sdk
+  baseURL: https://github.com/hyperliquid-dex/hyperliquid-python-sdk
+  tags:
+  - SDK
+  - Python
+  - Trading
+  properties:
+  - type: Documentation
+    url: https://github.com/hyperliquid-dex/hyperliquid-python-sdk
+  - type: Repository
+    url: https://github.com/hyperliquid-dex/hyperliquid-python-sdk
+- aid: hyperliquid:rust-sdk
+  name: Hyperliquid Rust SDK
+  description: >-
+    Official Rust SDK for the Hyperliquid REST and WebSocket APIs, suited for high-performance market-making
+    and trading clients.
+  humanURL: https://github.com/hyperliquid-dex/hyperliquid-rust-sdk
+  baseURL: https://github.com/hyperliquid-dex/hyperliquid-rust-sdk
+  tags:
+  - SDK
+  - Rust
+  - Trading
+  properties:
+  - type: Documentation
+    url: https://github.com/hyperliquid-dex/hyperliquid-rust-sdk
+  - type: Repository
+    url: https://github.com/hyperliquid-dex/hyperliquid-rust-sdk
+- aid: hyperliquid:node
+  name: Hyperliquid Node
+  description: >-
+    Open-source Hyperliquid validator / non-validating node distribution used to participate in the HyperBFT
+    consensus network and serve HyperCore + HyperEVM state.
+  humanURL: https://github.com/hyperliquid-dex/node
+  baseURL: https://github.com/hyperliquid-dex/node
+  tags:
+  - Node
+  - Validator
+  - Infrastructure
+  properties:
+  - type: Documentation
+    url: https://github.com/hyperliquid-dex/node
+  - type: Repository
+    url: https://github.com/hyperliquid-dex/node
+- aid: hyperliquid:hyperevm-rpc
+  name: HyperEVM JSON-RPC
+  description: >-
+    EVM-compatible JSON-RPC endpoint exposed by Hyperliquid for deploying and interacting with smart contracts
+    on HyperEVM (chain ID 999), executed alongside HyperCore.
+  humanURL: https://hyperliquid.gitbook.io/hyperliquid-docs/hyperevm
+  baseURL: https://rpc.hyperliquid.xyz/evm
+  tags:
+  - JSON-RPC
+  - EVM
+  - HyperEVM
+  - Smart Contracts
+  properties:
+  - type: Documentation
+    url: https://hyperliquid.gitbook.io/hyperliquid-docs/hyperevm
+- aid: hyperliquid:hyperliquid-info-api
+  name: Hyperliquid Info API
+  description: The Info API from Hyperliquid — 1 operation(s) for info.
+  humanURL: https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api
+  baseURL: https://api.hyperliquid.xyz
+  tags:
+  - Info
+  properties:
+  - type: OpenAPI
+    url: openapi/hyperliquid-info-api-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/hyperliquid-agentic-access.yml
