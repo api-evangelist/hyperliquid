@@ -1,0 +1,14 @@
+{
+  "provider": "hyperliquid",
+  "sources": [
+    "hyperliquid-info-api-openapi.yml"
+  ],
+  "outputs": [
+    "hyperliquid-info-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
