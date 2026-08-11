@@ -145,6 +145,15 @@ apis:
   - type: OpenAPI
     url: openapi/hyperliquid-info-api-openapi.yml
 common:
+  - type: IssueTracker
+    url: https://github.com/hyperliquid-dex/hyperliquid-python-sdk/issues
+  - type: Releases
+    url: https://github.com/hyperliquid-dex/hyperliquid-python-sdk/releases
+  - type: SecurityPolicy
+    url: https://github.com/hyperliquid-dex/hyperliquid-python-sdk/blob/master/SECURITY.md
+  - type: License
+    name: MIT
+    url: https://github.com/hyperliquid-dex/hyperliquid-python-sdk/blob/master/LICENSE
   - type: AgenticAccess
     url: agentic-access/hyperliquid-agentic-access.yml
   - type: DomainSecurity
