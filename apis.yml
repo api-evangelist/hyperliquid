@@ -10,6 +10,19 @@ description: >-
   api.hyperliquid.xyz for trading, order management, market data, and account state.
   Official Python and Rust SDKs wrap the API, and the node, order-book server, and
   HyperEVM tooling are open-sourced under the hyperliquid-dex GitHub organization.
+deliveryModel:
+  model: self-hosted
+  license: MIT
+  open_source: true
+  commercial: false
+  callable_host: true
+  label: Self-hosted open source · you run it yourself
+  confidence: high
+  source:
+  - license
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: unknown
