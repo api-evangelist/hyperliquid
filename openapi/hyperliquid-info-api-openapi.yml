@@ -1,11 +1,9 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Hyperliquid Info API
   description: 'Hyperliquid REST API for retrieving exchange and user info. All requests are POST to the
 
-    /info endpoint with a JSON body whose `type` field selects the query.
-
-    '
+    /info endpoint with a JSON body whose `type` field selects the query.'
   version: 1.0.0
   contact:
     name: Hyperliquid Docs
@@ -23,9 +21,7 @@ paths:
       summary: Query info endpoint
       description: 'Polymorphic POST endpoint. The `type` field in the body selects which
 
-        query is run (e.g. allMids, openOrders, userFills, l2Book, candleSnapshot, etc.).
-
-        '
+        query is run (e.g. allMids, openOrders, userFills, l2Book, candleSnapshot, etc.).'
       operationId: postInfo
       requestBody:
         required: true
@@ -64,7 +60,7 @@ paths:
       - Info
 components:
   schemas:
-    FrontendOpenOrdersRequest:
+    ReferralRequest:
       type: object
       required:
       - type
@@ -73,7 +69,7 @@ components:
         type:
           type: string
           enum:
-          - frontendOpenOrders
+          - referral
         user:
           type: string
     L2BookRequest:
@@ -92,7 +88,7 @@ components:
           type: integer
         mantissa:
           type: integer
-    UserFillsRequest:
+    HistoricalOrdersRequest:
       type: object
       required:
       - type
@@ -101,12 +97,10 @@ components:
         type:
           type: string
           enum:
-          - userFills
+          - historicalOrders
         user:
           type: string
-        aggregateByTime:
-          type: boolean
-    UserFeesRequest:
+    PortfolioRequest:
       type: object
       required:
       - type
@@ -115,19 +109,8 @@ components:
         type:
           type: string
           enum:
-          - userFees
+          - portfolio
         user:
-          type: string
-    AllMidsRequest:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - allMids
-        dex:
           type: string
     UserFillsByTimeRequest:
       type: object
@@ -150,7 +133,7 @@ components:
           format: int64
         aggregateByTime:
           type: boolean
-    SubAccountsRequest:
+    UserRateLimitRequest:
       type: object
       required:
       - type
@@ -159,10 +142,10 @@ components:
         type:
           type: string
           enum:
-          - subAccounts
+          - userRateLimit
         user:
           type: string
-    HistoricalOrdersRequest:
+    FrontendOpenOrdersRequest:
       type: object
       required:
       - type
@@ -171,27 +154,21 @@ components:
         type:
           type: string
           enum:
-          - historicalOrders
+          - frontendOpenOrders
         user:
           type: string
-    OrderStatusRequest:
+    DelegationsRequest:
       type: object
       required:
       - type
       - user
-      - oid
       properties:
         type:
           type: string
           enum:
-          - orderStatus
+          - delegations
         user:
           type: string
-        oid:
-          oneOf:
-          - type: integer
-            format: int64
-          - type: string
     OpenOrdersRequest:
       type: object
       required:
@@ -205,42 +182,6 @@ components:
         user:
           type: string
           description: User's Ethereum address (0x...)
-    UserRateLimitRequest:
-      type: object
-      required:
-      - type
-      - user
-      properties:
-        type:
-          type: string
-          enum:
-          - userRateLimit
-        user:
-          type: string
-    PortfolioRequest:
-      type: object
-      required:
-      - type
-      - user
-      properties:
-        type:
-          type: string
-          enum:
-          - portfolio
-        user:
-          type: string
-    ReferralRequest:
-      type: object
-      required:
-      - type
-      - user
-      properties:
-        type:
-          type: string
-          enum:
-          - referral
-        user:
-          type: string
     CandleSnapshotRequest:
       type: object
       required:
@@ -269,7 +210,25 @@ components:
             endTime:
               type: integer
               format: int64
-    DelegationsRequest:
+    OrderStatusRequest:
+      type: object
+      required:
+      - type
+      - user
+      - oid
+      properties:
+        type:
+          type: string
+          enum:
+          - orderStatus
+        user:
+          type: string
+        oid:
+          oneOf:
+          - type: integer
+            format: int64
+          - type: string
+    UserFeesRequest:
       type: object
       required:
       - type
@@ -278,6 +237,43 @@ components:
         type:
           type: string
           enum:
-          - delegations
+          - userFees
         user:
           type: string
+    SubAccountsRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - subAccounts
+        user:
+          type: string
+    AllMidsRequest:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - allMids
+        dex:
+          type: string
+    UserFillsRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - userFills
+        user:
+          type: string
+        aggregateByTime:
+          type: boolean
