@@ -60,7 +60,7 @@ paths:
       - Info
 components:
   schemas:
-    DelegationsRequest:
+    ReferralRequest:
       type: object
       required:
       - type
@@ -69,7 +69,19 @@ components:
         type:
           type: string
           enum:
-          - delegations
+          - referral
+        user:
+          type: string
+    PortfolioRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - portfolio
         user:
           type: string
     HistoricalOrdersRequest:
@@ -84,7 +96,7 @@ components:
           - historicalOrders
         user:
           type: string
-    UserFeesRequest:
+    FrontendOpenOrdersRequest:
       type: object
       required:
       - type
@@ -93,23 +105,9 @@ components:
         type:
           type: string
           enum:
-          - userFees
+          - frontendOpenOrders
         user:
           type: string
-    UserFillsRequest:
-      type: object
-      required:
-      - type
-      - user
-      properties:
-        type:
-          type: string
-          enum:
-          - userFills
-        user:
-          type: string
-        aggregateByTime:
-          type: boolean
     L2BookRequest:
       type: object
       required:
@@ -126,7 +124,7 @@ components:
           type: integer
         mantissa:
           type: integer
-    PortfolioRequest:
+    UserFeesRequest:
       type: object
       required:
       - type
@@ -135,54 +133,9 @@ components:
         type:
           type: string
           enum:
-          - portfolio
+          - userFees
         user:
           type: string
-    SubAccountsRequest:
-      type: object
-      required:
-      - type
-      - user
-      properties:
-        type:
-          type: string
-          enum:
-          - subAccounts
-        user:
-          type: string
-    FrontendOpenOrdersRequest:
-      type: object
-      required:
-      - type
-      - user
-      properties:
-        type:
-          type: string
-          enum:
-          - frontendOpenOrders
-        user:
-          type: string
-    UserFillsByTimeRequest:
-      type: object
-      required:
-      - type
-      - user
-      - startTime
-      properties:
-        type:
-          type: string
-          enum:
-          - userFillsByTime
-        user:
-          type: string
-        startTime:
-          type: integer
-          format: int64
-        endTime:
-          type: integer
-          format: int64
-        aggregateByTime:
-          type: boolean
     CandleSnapshotRequest:
       type: object
       required:
@@ -211,42 +164,6 @@ components:
             endTime:
               type: integer
               format: int64
-    AllMidsRequest:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - allMids
-        dex:
-          type: string
-    ReferralRequest:
-      type: object
-      required:
-      - type
-      - user
-      properties:
-        type:
-          type: string
-          enum:
-          - referral
-        user:
-          type: string
-    OpenOrdersRequest:
-      type: object
-      required:
-      - type
-      - user
-      properties:
-        type:
-          type: string
-          enum:
-          - openOrders
-        user:
-          type: string
-          description: User's Ethereum address (0x...)
     UserRateLimitRequest:
       type: object
       required:
@@ -257,6 +174,18 @@ components:
           type: string
           enum:
           - userRateLimit
+        user:
+          type: string
+    DelegationsRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - delegations
         user:
           type: string
     OrderStatusRequest:
@@ -277,3 +206,74 @@ components:
           - type: integer
             format: int64
           - type: string
+    OpenOrdersRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - openOrders
+        user:
+          type: string
+          description: User's Ethereum address (0x...)
+    AllMidsRequest:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - allMids
+        dex:
+          type: string
+    UserFillsByTimeRequest:
+      type: object
+      required:
+      - type
+      - user
+      - startTime
+      properties:
+        type:
+          type: string
+          enum:
+          - userFillsByTime
+        user:
+          type: string
+        startTime:
+          type: integer
+          format: int64
+        endTime:
+          type: integer
+          format: int64
+        aggregateByTime:
+          type: boolean
+    SubAccountsRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - subAccounts
+        user:
+          type: string
+    UserFillsRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - userFills
+        user:
+          type: string
+        aggregateByTime:
+          type: boolean
