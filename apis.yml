@@ -162,6 +162,12 @@ apis:
   - type: OpenAPI
     url: openapi/hyperliquid-info-api-openapi.yml
 common:
+  - type: Plans
+    url: plans/hyperliquid-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/hyperliquid-rate-limits.yml
+  - type: FinOps
+    url: finops/hyperliquid-finops.yml
   - type: IssueTracker
     url: https://github.com/hyperliquid-dex/hyperliquid-python-sdk/issues
   - type: Releases
