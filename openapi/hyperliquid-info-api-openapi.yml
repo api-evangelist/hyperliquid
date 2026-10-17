@@ -60,115 +60,6 @@ paths:
       - Info
 components:
   schemas:
-    SubAccountsRequest:
-      type: object
-      required:
-      - type
-      - user
-      properties:
-        type:
-          type: string
-          enum:
-          - subAccounts
-        user:
-          type: string
-    ReferralRequest:
-      type: object
-      required:
-      - type
-      - user
-      properties:
-        type:
-          type: string
-          enum:
-          - referral
-        user:
-          type: string
-    PortfolioRequest:
-      type: object
-      required:
-      - type
-      - user
-      properties:
-        type:
-          type: string
-          enum:
-          - portfolio
-        user:
-          type: string
-    UserRateLimitRequest:
-      type: object
-      required:
-      - type
-      - user
-      properties:
-        type:
-          type: string
-          enum:
-          - userRateLimit
-        user:
-          type: string
-    L2BookRequest:
-      type: object
-      required:
-      - type
-      - coin
-      properties:
-        type:
-          type: string
-          enum:
-          - l2Book
-        coin:
-          type: string
-        nSigFigs:
-          type: integer
-        mantissa:
-          type: integer
-    UserFillsByTimeRequest:
-      type: object
-      required:
-      - type
-      - user
-      - startTime
-      properties:
-        type:
-          type: string
-          enum:
-          - userFillsByTime
-        user:
-          type: string
-        startTime:
-          type: integer
-          format: int64
-        endTime:
-          type: integer
-          format: int64
-        aggregateByTime:
-          type: boolean
-    DelegationsRequest:
-      type: object
-      required:
-      - type
-      - user
-      properties:
-        type:
-          type: string
-          enum:
-          - delegations
-        user:
-          type: string
-    HistoricalOrdersRequest:
-      type: object
-      required:
-      - type
-      - user
-      properties:
-        type:
-          type: string
-          enum:
-          - historicalOrders
-        user:
-          type: string
     AllMidsRequest:
       type: object
       required:
@@ -180,19 +71,6 @@ components:
           - allMids
         dex:
           type: string
-    OpenOrdersRequest:
-      type: object
-      required:
-      - type
-      - user
-      properties:
-        type:
-          type: string
-          enum:
-          - openOrders
-        user:
-          type: string
-          description: User's Ethereum address (0x...)
     UserFeesRequest:
       type: object
       required:
@@ -205,20 +83,6 @@ components:
           - userFees
         user:
           type: string
-    UserFillsRequest:
-      type: object
-      required:
-      - type
-      - user
-      properties:
-        type:
-          type: string
-          enum:
-          - userFills
-        user:
-          type: string
-        aggregateByTime:
-          type: boolean
     FrontendOpenOrdersRequest:
       type: object
       required:
@@ -229,6 +93,18 @@ components:
           type: string
           enum:
           - frontendOpenOrders
+        user:
+          type: string
+    HistoricalOrdersRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - historicalOrders
         user:
           type: string
     CandleSnapshotRequest:
@@ -259,6 +135,102 @@ components:
             endTime:
               type: integer
               format: int64
+    ReferralRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - referral
+        user:
+          type: string
+    DelegationsRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - delegations
+        user:
+          type: string
+    UserFillsRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - userFills
+        user:
+          type: string
+        aggregateByTime:
+          type: boolean
+    UserFillsByTimeRequest:
+      type: object
+      required:
+      - type
+      - user
+      - startTime
+      properties:
+        type:
+          type: string
+          enum:
+          - userFillsByTime
+        user:
+          type: string
+        startTime:
+          type: integer
+          format: int64
+        endTime:
+          type: integer
+          format: int64
+        aggregateByTime:
+          type: boolean
+    UserRateLimitRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - userRateLimit
+        user:
+          type: string
+    SubAccountsRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - subAccounts
+        user:
+          type: string
+    OpenOrdersRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - openOrders
+        user:
+          type: string
+          description: User's Ethereum address (0x...)
     OrderStatusRequest:
       type: object
       required:
@@ -277,3 +249,31 @@ components:
           - type: integer
             format: int64
           - type: string
+    L2BookRequest:
+      type: object
+      required:
+      - type
+      - coin
+      properties:
+        type:
+          type: string
+          enum:
+          - l2Book
+        coin:
+          type: string
+        nSigFigs:
+          type: integer
+        mantissa:
+          type: integer
+    PortfolioRequest:
+      type: object
+      required:
+      - type
+      - user
+      properties:
+        type:
+          type: string
+          enum:
+          - portfolio
+        user:
+          type: string
