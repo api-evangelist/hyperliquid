@@ -1,4 +1,4 @@
-# Hyperliquid (hyperliquid)
+# Hyperliquid
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,158 +66,137 @@
 
 Hyperliquid is a high-performance Layer 1 blockchain (HyperBFT consensus, HyperCore + HyperEVM execution) best known for its native perpetual futures and spot DEX with capacity for hundreds of thousands of orders per second. Developers and traders interact with Hyperliquid through a public REST and WebSocket API at api.hyperliquid.xyz for trading, order management, market data, and account state. Official Python and Rust SDKs wrap the API, and the node, order-book server, and HyperEVM tooling are open-sourced under the hyperliquid-dex GitHub organization.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/hyperliquid/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/hyperliquid/refs/heads/main/apis.yml)
+**Areas:** DeFi · Perpetuals · Decentralized Exchange · Layer 1 · Trading · Order Book · HyperEVM · Real-Time
 
-## Tags
+## Hyperliquid on APIs.io
 
-- DeFi
-- Perpetuals
-- DEX
-- Layer 1
-- Trading
-- Order Book
-- HyperEVM
+Everything profiled for Hyperliquid is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/hyperliquid/](https://apis.io/providers/hyperliquid/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (7)
 
-- **Created:** 2026-05-23
-- **Modified:** 2026-05-29
+- [Hyperliquid REST API](https://apis.io/apis/hyperliquid/rest-api/) — Public REST API for the Hyperliquid exchange. Read endpoints expose market metadata, order books, candles, trades, funding rates, user state, open orders,…
+- [Hyperliquid WebSocket API](https://apis.io/apis/hyperliquid/websocket-api/) — Real-time WebSocket feed delivering order-book deltas, trades, candles, BBO, user fills, user funding, user-events, and active asset context. Also supports…
+- [Hyperliquid Python SDK](https://apis.io/apis/hyperliquid/python-sdk/) — Official Python SDK for the Hyperliquid REST and WebSocket APIs. Handles EIP-712 signing, action serialization, websocket subscription management, and typed…
+- [Hyperliquid Rust SDK](https://apis.io/apis/hyperliquid/rust-sdk/) — Official Rust SDK for the Hyperliquid REST and WebSocket APIs, suited for high-performance market-making and trading clients.
+- [Hyperliquid Node](https://apis.io/apis/hyperliquid/node/) — Open-source Hyperliquid validator / non-validating node distribution used to participate in the HyperBFT consensus network and serve HyperCore + HyperEVM state.
+- [HyperEVM JSON-RPC](https://apis.io/apis/hyperliquid/hyperevm-rpc/) — EVM-compatible JSON-RPC endpoint exposed by Hyperliquid for deploying and interacting with smart contracts on HyperEVM (chain ID 999), executed alongside…
+- [Hyperliquid Info API](https://apis.io/apis/hyperliquid/hyperliquid-info-api/) — The Info API from Hyperliquid — 1 operation(s) for info.
 
-## APIs
+### Published properties
 
-### Hyperliquid REST API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Public REST API for the Hyperliquid exchange. Read endpoints expose market metadata, order books, candles, trades, funding rates, user state, open orders, fills, and historical data. Write endpoints (under /exchange) accept signed actions for placing, cancelling, and modifying orders, transferring USDC, adjusting leverage, and managing sub-accounts and vaults.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api)
-- **Base URL:** `https://api.hyperliquid.xyz`
+Event-driven and webhook contracts.
 
-#### Tags
+- [Hyperliquid WebSocket API](https://apis.io/asyncapis/hyperliquid/hyperliquid-asyncapi/)
 
-- REST
-- Trading
-- Market Data
-- Perpetuals
+#### Event channels (1)
 
-#### Properties
+Individual events and webhooks the provider emits.
 
-- [Documentation](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api)
-- [Postman Collection](collections/hyperliquid.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hyperliquid.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [/](https://apis.io/channels/hyperliquid/untitled/)
 
-### Hyperliquid WebSocket API
+#### Agentic access (1)
 
-Real-time WebSocket feed delivering order-book deltas, trades, candles, BBO, user fills, user funding, user-events, and active asset context. Also supports WebSocket-based POST actions for low-latency order management.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/websocket](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/websocket)
-- **Base URL:** `wss://api.hyperliquid.xyz/ws`
+- [Hyperliquid Agentic Access](https://apis.io/agentic-access/hyperliquid/hyperliquid-agentic-access/)
 
-#### Tags
+#### Collections (2)
 
-- WebSocket
-- Streaming
-- Order Book
-- Real-Time
+Postman and Open Collection request collections.
 
-#### Properties
+- [Hyperliquid Info API](https://apis.io/collections/hyperliquid/open-hyperliquid/)
+- [Hyperliquid Info API](https://apis.io/collections/hyperliquid/open-hyperliquid-info-api/)
 
-- [Documentation](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/websocket)
-- [AsyncAPI](https://raw.githubusercontent.com/api-evangelist/hyperliquid/refs/heads/main/asyncapi/hyperliquid-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [Postman Collection](collections/hyperliquid.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hyperliquid.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Governance rules (1)
 
-### Hyperliquid Python SDK
+Spectral rulesets for the provider's contracts.
 
-Official Python SDK for the Hyperliquid REST and WebSocket APIs. Handles EIP-712 signing, action serialization, websocket subscription management, and typed wrappers for market and trading endpoints.
+- [Hyperliquid — asyncapi rules](https://apis.io/rules/hyperliquid/hyperliquid-asyncapi-spectral-rules/)
 
-- **Human URL:** [https://github.com/hyperliquid-dex/hyperliquid-python-sdk](https://github.com/hyperliquid-dex/hyperliquid-python-sdk)
-- **Base URL:** `https://github.com/hyperliquid-dex/hyperliquid-python-sdk`
+#### Security (1)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- SDK
-- Python
-- Trading
+- [Hyperliquid Domain Security](https://apis.io/security/hyperliquid/hyperliquid-domain-security/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Documentation](https://github.com/hyperliquid-dex/hyperliquid-python-sdk)
-- [Repository](https://github.com/hyperliquid-dex/hyperliquid-python-sdk)
-- [Postman Collection](collections/hyperliquid.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hyperliquid.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Published plans, tiers and prices.
 
-### Hyperliquid Rust SDK
+- [Hyperliquid Plans Pricing](https://apis.io/plans/hyperliquid/hyperliquid-plans-pricing/)
 
-Official Rust SDK for the Hyperliquid REST and WebSocket APIs, suited for high-performance market-making and trading clients.
+#### Rate limits (1)
 
-- **Human URL:** [https://github.com/hyperliquid-dex/hyperliquid-rust-sdk](https://github.com/hyperliquid-dex/hyperliquid-rust-sdk)
-- **Base URL:** `https://github.com/hyperliquid-dex/hyperliquid-rust-sdk`
+Published request limits.
 
-#### Tags
+- [Hyperliquid Rate Limits](https://apis.io/rate-limits/hyperliquid/hyperliquid-rate-limits/)
 
-- SDK
-- Rust
-- Trading
+#### FinOps (1)
 
-#### Properties
+What the API costs to run, by operation.
 
-- [Documentation](https://github.com/hyperliquid-dex/hyperliquid-rust-sdk)
-- [Repository](https://github.com/hyperliquid-dex/hyperliquid-rust-sdk)
-- [Postman Collection](collections/hyperliquid.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hyperliquid.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Hyperliquid Finops](https://apis.io/finops/hyperliquid/hyperliquid-finops/)
 
-### Hyperliquid Node
+## Where to find this API
 
-Open-source Hyperliquid validator / non-validating node distribution used to participate in the HyperBFT consensus network and serve HyperCore + HyperEVM state.
-
-- **Human URL:** [https://github.com/hyperliquid-dex/node](https://github.com/hyperliquid-dex/node)
-- **Base URL:** `https://github.com/hyperliquid-dex/node`
-
-#### Tags
-
-- Node
-- Validator
-- Infrastructure
-
-#### Properties
-
-- [Documentation](https://github.com/hyperliquid-dex/node)
-- [Repository](https://github.com/hyperliquid-dex/node)
-- [Postman Collection](collections/hyperliquid.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hyperliquid.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### HyperEVM JSON-RPC
-
-EVM-compatible JSON-RPC endpoint exposed by Hyperliquid for deploying and interacting with smart contracts on HyperEVM (chain ID 999), executed alongside HyperCore.
-
-- **Human URL:** [https://hyperliquid.gitbook.io/hyperliquid-docs/hyperevm](https://hyperliquid.gitbook.io/hyperliquid-docs/hyperevm)
-- **Base URL:** `https://rpc.hyperliquid.xyz/evm`
-
-#### Tags
-
-- JSON-RPC
-- EVM
-- HyperEVM
-- Smart Contracts
-
-#### Properties
-
-- [Documentation](https://hyperliquid.gitbook.io/hyperliquid-docs/hyperevm)
-- [Postman Collection](collections/hyperliquid.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hyperliquid.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://hyperliquid.xyz)
-- [Foundation](https://hyperfoundation.org)
 - [Documentation](https://hyperliquid.gitbook.io/hyperliquid-docs)
-- [Git Hub](https://github.com/hyperliquid-dex)
-- [App](https://app.hyperliquid.xyz)
-- [Stats](https://stats.hyperliquid.xyz)
-- [Twitter](https://x.com/HyperliquidX)
-- [Discord](https://discord.gg/hyperliquid)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 31.3** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 55.4 |
+| Contract governance | 11.4 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 14.3 |
+| Access clarity | 5.3 |
+
+**Agent readiness 16.5** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.1** — Securities & Market Data
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/hyperliquid/](https://apis.io/providers/hyperliquid/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Hyperliquid: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/hyperliquid/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
